@@ -4,6 +4,11 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from .config import Config
+from app.routes import auth, tasks
+
+app.register_blueprint(auth.bp)
+app.register_blueprint(tasks.bp)
+
 
 db = SQLAlchemy()
 migrate = Migrate()

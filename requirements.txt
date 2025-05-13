@@ -1,10 +1,21 @@
+# Core Framework
 Flask
 Flask-SQLAlchemy
 Flask-Migrate
-Flask-JWT-Extended
 Flask-Cors
+
+# Authentication & Security
+Flask-JWT-Extended
+
+# AWS Integration
 boto3
 python-dotenv
+
+# Deployment
 gunicorn
+
+# Database Driver(PostgreSQL)
 psycopg2-binary
+
+#Testing
 pytest
