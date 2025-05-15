@@ -1,29 +1,22 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from .config import Config
-from app.routes import auth, tasks
-
-app.register_blueprint(auth.bp)
-app.register_blueprint(tasks.bp)
-
+from dotenv import load_dotenv
+import os
 
 db = SQLAlchemy()
-migrate = Migrate()
-jwt = JWTManager()
 
 def create_app():
+    load_dotenv()
+
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
     db.init_app(app)
-    migrate.init_app(app, db)
-    jwt.init_app(app)
     CORS(app)
 
-    from app.routes import auth, tasks
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(tasks.bp)
+    from .routes import task_routes
+    app.register_blueprint(task_routes)
 
     return app
